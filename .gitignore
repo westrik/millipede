@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+/bazel-*
+/bazel.iml
+/.vscode/
+/.env
+/reading
