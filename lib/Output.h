@@ -1,5 +1,5 @@
 #pragma once
 
 namespace Millipede {
-void render();
+void output_ppm();
 }

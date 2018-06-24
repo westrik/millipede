@@ -31,8 +31,11 @@
 *.out
 *.app
 
+# Miscellaneous
 /bazel-*
 /bazel.iml
 /.vscode/
 /.env
 /reading
+*.ppm
+*.png
