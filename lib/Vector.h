@@ -112,14 +112,6 @@ public:
     inline double length() const {
         return sqrt(squared_length());
     }
-    inline double dot(const Vector &a, const Vector &b) {
-        return (*this).squared_length();
-    }
-    inline Vector cross(const Vector &a, const Vector &b) {
-        return Vector((a.y() * b.z() - a.z() * b.y()),
-            -(a.x() * b.z() - a.z() * b.x()),
-            (a.x() * b.y() - a.y() * b.x()));
-    }
     inline void to_unit_vector() {
         (*this) /= length();
     }
@@ -133,6 +125,14 @@ inline Vector operator*(const double multiplier, const Vector& multiplicand) {
         multiplicand.y() * multiplier,
         multiplicand.z() * multiplier
     );
+}
+inline double dot(const Vector &a, const Vector &b) {
+    return a.x() * b.x() + a.y() * b.y() + a.z() * b.z();
+}
+inline Vector cross(const Vector &a, const Vector &b) {
+    return Vector((a.y() * b.z() - a.z() * b.y()),
+        -(a.x() * b.z() - a.z() * b.x()),
+        (a.x() * b.y() - a.y() * b.x()));
 }
 
 }
