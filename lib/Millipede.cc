@@ -9,21 +9,27 @@
 
 namespace Millipede {
 
-bool hit_sphere(const Vector& centre, double radius, const Ray& ray) {
+double hit_sphere(const Vector& centre, double radius, const Ray& ray) {
     Vector oc = ray.origin() - centre;
     double a = dot(ray.direction(), ray.direction());
     double b = 2.0 * dot(oc, ray.direction());
     double c = dot(oc, oc) - radius * radius;
     double discriminant = b * b - 4 * a * c;
-    return (discriminant > 0);
+    if (discriminant < 0) {
+        return -1.0;
+    } else {
+        return (-b - sqrt(discriminant)) / (2 * a);
+    }
 }
 
 Colour get_colour(const Ray& ray) {
-    if (hit_sphere(Vector(0, 0, -1), 0.5, ray)) {
-        return Colour(1, 0, 0);
+    double t = hit_sphere(Vector(0, 0, -1), 0.5, ray); 
+    if (t > 0) {
+        Vector n = unit_vector(ray.point(t) - Vector(0, 0, -1));
+        return 0.5 * Colour(n.x()+1, n.y()+1, n.z()+1);
     }
     Vector unit_direction = unit_vector(ray.direction());
-    double t = 0.5 * (unit_direction.y() + 1.0);
+    t = 0.5 * (unit_direction.y() + 1.0);
     return (1.0 - t) * Colour(1, 1, 1) + t * Colour(0.5, 0.7, 1);
 }
 
