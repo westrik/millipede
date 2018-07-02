@@ -16,7 +16,7 @@ double hit_sphere(const Vector& centre, double radius, const Ray& ray) {
     double c = dot(oc, oc) - radius * radius;
     double discriminant = b * b - 4 * a * c;
     if (discriminant < 0) {
-        return -1.0;
+        return -1;
     } else {
         return (-b - sqrt(discriminant)) / (2 * a);
     }
@@ -29,7 +29,7 @@ Colour get_colour(const Ray& ray) {
         return 0.5 * Colour(n.x()+1, n.y()+1, n.z()+1);
     }
     Vector unit_direction = unit_vector(ray.direction());
-    t = 0.5 * (unit_direction.y() + 1.0);
+    t = 0.5 * (unit_direction.y() + 1);
     return (1.0 - t) * Colour(1, 1, 1) + t * Colour(0.5, 0.7, 1);
 }
 
