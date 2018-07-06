@@ -1,6 +1,8 @@
 # millipede
 
-[Install Bazel](https://docs.bazel.build/versions/master/install.html)
+## Dependencies
+- [Bazel](https://docs.bazel.build/versions/master/install.html)
+- C++17 compatible toolchain
 
 ```
 bazel build //main:mpede
