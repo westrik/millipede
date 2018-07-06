@@ -17,7 +17,7 @@ Vector Ray::direction() const {
     return d;
 }
 Vector Ray::point(double distance) const {
-    return o + d * distance;
+    return o + distance * d;
 }
 
 }

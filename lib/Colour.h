@@ -99,7 +99,7 @@ public:
 };
 
 inline Colour operator*(const double multiplier, const Colour& multiplicand) {
-    return Colour(multiplicand.g() * multiplier,
+    return Colour(multiplicand.r() * multiplier,
         multiplicand.g() * multiplier,
         multiplicand.b() * multiplier
     );
