@@ -1,4 +1,4 @@
-#include "lib/Ray.h"
+#include "Ray.h"
 
 namespace Millipede {
 

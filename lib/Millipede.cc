@@ -2,10 +2,10 @@
 
 #include <iostream>
 
-#include "Vector.h"
-#include "Ray.h"
-#include "Colour.h"
-#include "Output.h"
+#include "geometry/Vector.h"
+#include "geometry/Ray.h"
+#include "colour/Colour.h"
+#include "output/Output.h"
 
 namespace Millipede {
 
