@@ -2,7 +2,7 @@
 
 ## Dependencies
 - [Bazel](https://docs.bazel.build/versions/master/install.html)
-- C++17 compatible toolchain
+- C++17 compatible toolchain (e.g. Xcode 9)
 
 ```
 bazel build //main:mpede
