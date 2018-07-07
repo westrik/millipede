@@ -1,4 +1,4 @@
-#include "lib/Colour.h"
+#include "Colour.h"
 
 namespace Millipede {
 

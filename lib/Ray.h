@@ -1,6 +1,6 @@
 #pragma once
 
-#include "lib/Vector.h"
+#include "Vector.h"
 
 namespace Millipede {
 

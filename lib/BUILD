@@ -2,9 +2,9 @@ cc_library(
     name = "Millipede",
     srcs = [
         "Millipede.cc", 
-        "Vector.cpp", 
-        "Ray.cpp",  
-        "Colour.cpp",  
+        "Vector.cc", 
+        "Ray.cc",  
+        "Colour.cc",  
         "Output.cc"
     ],
     hdrs = [

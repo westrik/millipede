@@ -1,11 +1,11 @@
-#include "lib/Millipede.h"
+#include "Millipede.h"
 
 #include <iostream>
 
-#include "lib/Vector.h"
-#include "lib/Ray.h"
-#include "lib/Colour.h"
-#include "lib/Output.h"
+#include "Vector.h"
+#include "Ray.h"
+#include "Colour.h"
+#include "Output.h"
 
 namespace Millipede {
 

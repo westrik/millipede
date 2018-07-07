@@ -1,4 +1,4 @@
-#include "lib/Output.h"
+#include "Output.h"
 
 #include <iostream>
 
