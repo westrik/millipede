@@ -7,8 +7,8 @@ bool ShapeList::hit(const Ray& r, double t_min, double t_max, hit_record& hit_re
     bool hit = false;
     double closest = t_max;
 
-    for (int i = 0; i < size; i++) {
-        if (list[i]->hit(r, t_min, closest, record)) {
+    for (auto const& shape : shape_list) {
+        if (shape->hit(r, t_min, closest, record)) {
             hit = true;
             closest = record.t;
             hit_record = record;

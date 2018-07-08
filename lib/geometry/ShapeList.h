@@ -1,15 +1,16 @@
 #pragma once
 
+#include <vector>
+
 #include "Shape.h"
 
 namespace Millipede {
 
 class ShapeList {
-    Shape **list;
-    int size;
+    std::vector<std::shared_ptr<Shape > > shape_list;
 public:
     ShapeList() {}
-    ShapeList(Shape **list, int size) : list(list), size(size) {};
+    ShapeList(std::vector<std::shared_ptr<Shape > > list) { shape_list = list; };
     virtual bool hit(const Ray& r, double t_min, double t_max, hit_record& hit_record) const;
 };
 

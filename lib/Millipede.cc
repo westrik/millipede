@@ -1,6 +1,7 @@
 #include "Millipede.h"
 
 #include <iostream>
+#include <vector>
 
 #include "geometry/Vector.h"
 #include "geometry/Ray.h"
@@ -20,9 +21,9 @@ Vector random_in_unit_sphere() {
     return p;
 }
 
-Colour get_colour(const Ray& ray, ShapeList *world) {
+Colour get_colour(const Ray& ray, ShapeList &world) {
     struct hit_record record;
-    if (world->hit(ray, 0.001, std::numeric_limits<double>::max(), record)) {
+    if (world.hit(ray, 0.001, std::numeric_limits<double>::max(), record)) {
         Vector target = record.p + record.normal + random_in_unit_sphere();
         return 0.5 * get_colour(Ray(record.p, target - record.p), world);
     } else {
@@ -41,10 +42,12 @@ void render() {
 
     Camera camera;
 
-    Shape *list[2];
-    list[0] = new Sphere(Vector(0, 0, -1), 0.5);
-    list[1] = new Sphere(Vector(0, -100.5, -1), 100);
-    ShapeList *world = new ShapeList(list, 2);
+    std::vector<std::shared_ptr<Shape > > shape_list;
+    std::shared_ptr<Shape > small (new Sphere(Vector(0, 0, -1), 0.5));
+    shape_list.push_back(small);
+    std::shared_ptr<Shape > globe (new Sphere(Vector(0, -100.5, -1), 100));
+    shape_list.push_back(globe);
+    ShapeList world (shape_list);
 
     for (auto j = height - 1; j >= 0; j--) {
         for (auto i = 0; i < width; i++) {
