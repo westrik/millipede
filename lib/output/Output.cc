@@ -15,9 +15,9 @@ void output_ppm() {
             float r = float(i) / float(width);
             float g = float(j) / float(height);
             float b = 0.2;
-            int ir = int(255.99*r);
-            int ig = int(255.99*g);
-            int ib = int(255.99*b);
+            int ir = int(255.99 * r);
+            int ig = int(255.99 * g);
+            int ib = int(255.99 * b);
             std::cout << ir << " " << ig << " " << ib << "\n";
         }
     }

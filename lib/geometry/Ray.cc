@@ -2,22 +2,14 @@
 
 namespace Millipede {
 
-Ray::Ray() {
-}
-
-Ray::Ray(const Vector& origin, const Vector& direction) {
-    o = origin;
-    d = direction;
-}
-
 Vector Ray::origin() const {
-    return o;
+    return orig;
 }
 Vector Ray::direction() const {
-    return d;
+    return dir;
 }
 Vector Ray::point(double distance) const {
-    return o + distance * d;
+    return orig + distance * dir;
 }
 
 }

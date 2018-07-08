@@ -4,17 +4,21 @@ cc_library(
         "Millipede.cc", 
         "geometry/Vector.cc", 
         "geometry/Ray.cc",  
+        "geometry/Shape.cc",
+        "geometry/ShapeList.cc",
+        "geometry/Sphere.cc",
         "colour/Colour.cc",  
         "output/Output.cc",
-        "shape/Shape.cc"
     ],
     hdrs = [
         "Millipede.h", 
         "geometry/Vector.h", 
         "geometry/Ray.h", 
+        "geometry/Shape.h",
+        "geometry/ShapeList.h",
+        "geometry/Sphere.h",
         "colour/Colour.h", 
         "output/Output.h",
-        "shape/Shape.h"
     ],
     visibility = ["//main:__pkg__"],
 )
