@@ -13,6 +13,7 @@ struct hit_record {
 
 class Shape {
 public:
+    virtual ~Shape() = 0;
     virtual bool hit(const Ray& r, double t_min, double t_max, hit_record& hit_record) const = 0;
 };
 
