@@ -12,14 +12,19 @@
 
 namespace Millipede {
 
+Vector random_in_unit_sphere() {
+    Vector p;
+    do {
+        p = 2 * Vector(drand48(), drand48(), drand48()) - Vector(1, 1, 1);
+    } while (p.squared_length() >= 1);
+    return p;
+}
+
 Colour get_colour(const Ray& ray, ShapeList *world) {
     struct hit_record record;
-    if (world->hit(ray, 0.0, std::numeric_limits<long>::max(), record)) {
-        return 0.5 * Colour(
-            record.normal.x() + 1, 
-            record.normal.y() + 1, 
-            record.normal.z() + 1
-        );
+    if (world->hit(ray, 0.001, std::numeric_limits<double>::max(), record)) {
+        Vector target = record.p + record.normal + random_in_unit_sphere();
+        return 0.5 * get_colour(Ray(record.p, target - record.p), world);
     } else {
         Vector unit_direction = unit_vector(ray.direction());
         double t = 0.5 * unit_direction.y() + 1;
@@ -53,6 +58,9 @@ void render() {
                 colour += get_colour(r, world);
             }
             colour /= iterations;
+
+            // Gamma adjustment
+            colour = Colour(sqrt(colour.r()), sqrt(colour.g()), sqrt(colour.b()));
 
             int ir = int(255.99 * colour.r());
             int ig = int(255.99 * colour.g());
