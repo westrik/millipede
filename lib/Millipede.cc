@@ -30,6 +30,7 @@ Colour get_colour(const Ray& ray, ShapeList *world) {
 void render() {
     int width = 200;
     int height = 100;
+    int iterations = 100;
 
     std::cout << "P3\n" << width << " " << height << "\n255\n";
 
@@ -42,12 +43,16 @@ void render() {
 
     for (auto j = height - 1; j >= 0; j--) {
         for (auto i = 0; i < width; i++) {
+            Colour colour = Colour(0, 0, 0);
 
-            double u = double(i) / double(width);
-            double v = double(j) / double(height);
+            for (auto iter = 0; iter < iterations; iter++) {
+                double u = double(i + drand48()) / double(width);
+                double v = double(j + drand48()) / double(height);
 
-            Ray r = camera.get_ray(u, v);
-            Colour colour = get_colour(r, world);
+                Ray r = camera.get_ray(u, v);
+                colour += get_colour(r, world);
+            }
+            colour /= iterations;
 
             int ir = int(255.99 * colour.r());
             int ig = int(255.99 * colour.g());
