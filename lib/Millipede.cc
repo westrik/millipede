@@ -5,9 +5,10 @@
 #include "geometry/Vector.h"
 #include "geometry/Ray.h"
 #include "colour/Colour.h"
-#include "output/Output.h"
 #include "geometry/ShapeList.h"
 #include "geometry/Sphere.h"
+#include "camera/Camera.h"
+#include "output/Output.h"
 
 namespace Millipede {
 
@@ -32,10 +33,7 @@ void render() {
 
     std::cout << "P3\n" << width << " " << height << "\n255\n";
 
-    Vector lower_left_corner(-2, -1, -1);
-    Vector horizontal(4, 0, 0);
-    Vector vertical(0, 2, 0);
-    Vector origin(0, 0, 0);
+    Camera camera;
 
     Shape *list[2];
     list[0] = new Sphere(Vector(0, 0, -1), 0.5);
@@ -48,7 +46,7 @@ void render() {
             double u = double(i) / double(width);
             double v = double(j) / double(height);
 
-            Ray r(origin, lower_left_corner + u*horizontal + v*vertical);
+            Ray r = camera.get_ray(u, v);
             Colour colour = get_colour(r, world);
 
             int ir = int(255.99 * colour.r());

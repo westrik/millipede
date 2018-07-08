@@ -9,6 +9,7 @@ cc_library(
         "geometry/Sphere.cc",
         "colour/Colour.cc",  
         "output/Output.cc",
+        "camera/Camera.cc",
     ],
     hdrs = [
         "Millipede.h", 
@@ -19,6 +20,7 @@ cc_library(
         "geometry/Sphere.h",
         "colour/Colour.h", 
         "output/Output.h",
+        "camera/Camera.h",
     ],
     visibility = ["//main:__pkg__"],
 )
