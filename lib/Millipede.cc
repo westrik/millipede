@@ -42,10 +42,10 @@ void render() {
 
     Camera camera;
 
-    std::vector<std::shared_ptr<Shape > > shape_list;
-    std::shared_ptr<Shape > small (new Sphere(Vector(0, 0, -1), 0.5));
+    std::vector<std::shared_ptr<Shape> > shape_list;
+    std::shared_ptr<Shape> small (new Sphere(Vector(0, 0, -1), 0.5));
     shape_list.push_back(small);
-    std::shared_ptr<Shape > globe (new Sphere(Vector(0, -100.5, -1), 100));
+    std::shared_ptr<Shape> globe (new Sphere(Vector(0, -100.5, -1), 100));
     shape_list.push_back(globe);
     ShapeList world (shape_list);
 
