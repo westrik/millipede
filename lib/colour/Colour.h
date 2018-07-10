@@ -8,6 +8,8 @@ class Colour {
     double vec[3];
 
 public:
+    Colour() {}
+    ~Colour() {}
     Colour(double r, double g, double b) {
         vec[0] = r;
         vec[1] = g;

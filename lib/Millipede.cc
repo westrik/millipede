@@ -2,12 +2,16 @@
 
 #include <iostream>
 #include <vector>
+#include <memory>
+#include <limits>
 
 #include "geometry/Vector.h"
 #include "geometry/Ray.h"
 #include "colour/Colour.h"
 #include "geometry/ShapeList.h"
 #include "geometry/Sphere.h"
+#include "material/Lambertian.h"
+#include "material/Metal.h"
 #include "camera/Camera.h"
 #include "output/Output.h"
 
@@ -21,11 +25,16 @@ Vector random_in_unit_sphere() {
     return p;
 }
 
-Colour get_colour(const Ray& ray, ShapeList &world) {
-    struct hit_record record;
-    if (world.hit(ray, 0.001, std::numeric_limits<double>::max(), record)) {
-        Vector target = record.p + record.normal + random_in_unit_sphere();
-        return 0.5 * get_colour(Ray(record.p, target - record.p), world);
+Colour get_colour(const Ray& ray, ShapeList &world, int depth) {
+    auto hit_record = std::shared_ptr<HitRecord>(new HitRecord());
+    if (world.hit(ray, 0.001, std::numeric_limits<double>::max(), hit_record)) {
+        Ray scattered;
+        Colour attenuation;
+        if (depth < 50 && hit_record->material->scatter(ray, *hit_record, attenuation, scattered)) {
+            return attenuation * get_colour(scattered, world, depth + 1);
+        } else {
+            return Colour(0, 0, 0);
+        }
     } else {
         Vector unit_direction = unit_vector(ray.direction());
         double t = 0.5 * unit_direction.y() + 1;
@@ -43,10 +52,23 @@ void render() {
     Camera camera;
 
     std::vector<std::shared_ptr<Shape> > shape_list;
-    std::shared_ptr<Shape> small (new Sphere(Vector(0, 0, -1), 0.5));
-    shape_list.push_back(small);
-    std::shared_ptr<Shape> globe (new Sphere(Vector(0, -100.5, -1), 100));
+
+    std::shared_ptr<Shape> globe (new Sphere(Vector(0, -100.5, -1), 100,
+        std::shared_ptr<Lambertian>(new Lambertian(Colour(0.8, 0.8, 0)))));
     shape_list.push_back(globe);
+
+    std::shared_ptr<Shape> small (new Sphere(Vector(0, 0, -1), 0.5, 
+        std::shared_ptr<Lambertian>(new Lambertian(Colour(0.8, 0.3, 0.3)))));
+    shape_list.push_back(small);
+
+    std::shared_ptr<Shape> metal_ball_one (new Sphere(Vector(1, 0, -1), 0.5,
+        std::shared_ptr<Metal>(new Metal(Colour(0.8, 0.6, 0.2)))));
+    shape_list.push_back(metal_ball_one);
+
+    std::shared_ptr<Shape> metal_ball_two (new Sphere(Vector(-1, 0, -1), 0.5,
+        std::shared_ptr<Metal>(new Metal(Colour(0.8, 0.8, 0.8)))));
+    shape_list.push_back(metal_ball_two);
+
     ShapeList world (shape_list);
 
     for (auto j = height - 1; j >= 0; j--) {
@@ -58,7 +80,7 @@ void render() {
                 double v = double(j + drand48()) / double(height);
 
                 Ray r = camera.get_ray(u, v);
-                colour += get_colour(r, world);
+                colour += get_colour(r, world, 0);
             }
             colour /= iterations;
 

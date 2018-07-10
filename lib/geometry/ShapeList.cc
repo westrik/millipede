@@ -1,21 +1,24 @@
 #include "ShapeList.h"
 
+#include <memory>
+
 namespace Millipede {
 
-bool ShapeList::hit(const Ray& r, double t_min, double t_max, hit_record& hit_record) const {
-    struct hit_record record;
-    bool hit = false;
+bool ShapeList::hit(const Ray& r, double t_min, double t_max, 
+        std::shared_ptr<HitRecord>& hit_record) const {
+    auto closest_hit = std::shared_ptr<HitRecord>(new HitRecord());
+    bool was_hit = false;
     double closest = t_max;
 
     for (auto const& shape : shape_list) {
-        if (shape->hit(r, t_min, closest, record)) {
-            hit = true;
-            closest = record.t;
-            hit_record = record;
+        if (shape->hit(r, t_min, closest, closest_hit)) {
+            was_hit = true;
+            closest = closest_hit->t;
+            hit_record = closest_hit;
         }
     }
 
-    return hit;
+    return was_hit;
 }
 
 }
