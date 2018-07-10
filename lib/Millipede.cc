@@ -17,6 +17,9 @@
 
 namespace Millipede {
 
+const int MAX_DEPTH = 50;
+const int ITERATIONS = 100;
+
 Vector random_in_unit_sphere() {
     Vector p;
     do {
@@ -25,12 +28,12 @@ Vector random_in_unit_sphere() {
     return p;
 }
 
-Colour get_colour(const Ray& ray, ShapeList &world, int depth) {
-    auto hit_record = std::shared_ptr<HitRecord>(new HitRecord());
+Colour get_colour(const Ray& ray, const ShapeList &world, int depth) {
+    auto hit_record = std::shared_ptr<HitRecord>();
     if (world.hit(ray, 0.001, std::numeric_limits<double>::max(), hit_record)) {
         Ray scattered;
         Colour attenuation;
-        if (depth < 50 && hit_record->material->scatter(ray, *hit_record, attenuation, scattered)) {
+        if (depth < MAX_DEPTH && hit_record->material->scatter(ray, *hit_record, attenuation, scattered)) {
             return attenuation * get_colour(scattered, world, depth + 1);
         } else {
             return Colour(0, 0, 0);
@@ -45,7 +48,6 @@ Colour get_colour(const Ray& ray, ShapeList &world, int depth) {
 void render() {
     int width = 200;
     int height = 100;
-    int iterations = 100;
 
     std::cout << "P3\n" << width << " " << height << "\n255\n";
 
@@ -75,14 +77,14 @@ void render() {
         for (auto i = 0; i < width; i++) {
             Colour colour = Colour(0, 0, 0);
 
-            for (auto iter = 0; iter < iterations; iter++) {
+            for (auto iter = 0; iter < ITERATIONS; iter++) {
                 double u = double(i + drand48()) / double(width);
                 double v = double(j + drand48()) / double(height);
 
                 Ray r = camera.get_ray(u, v);
                 colour += get_colour(r, world, 0);
             }
-            colour /= iterations;
+            colour /= ITERATIONS;
 
             // Gamma adjustment
             colour = Colour(sqrt(colour.r()), sqrt(colour.g()), sqrt(colour.b()));
