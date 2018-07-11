@@ -19,7 +19,7 @@
 namespace Millipede {
 
 const int MAX_DEPTH = 50;
-const int ITERATIONS = 100;
+const int ITERATIONS = 1000;
 
 Vector random_in_unit_sphere() {
     Vector p;
@@ -47,12 +47,13 @@ Colour get_colour(const Ray& ray, const ShapeList &world, int depth) {
 }
 
 void render() {
-    int width = 200;
-    int height = 100;
+    int width = 400;
+    int height = 200;
 
     std::cout << "P3\n" << width << " " << height << "\n255\n";
 
-    Camera camera;
+    Camera camera (Vector(-2, 2, 1), Vector(0, 0, -1), Vector(0, 1, 0), 30, 
+        double(width) / double(height));
 
     std::vector<std::shared_ptr<Shape> > shape_list;
 

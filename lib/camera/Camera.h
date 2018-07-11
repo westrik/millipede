@@ -11,8 +11,8 @@ class Camera {
     Vector horizontal;
     Vector vertical;
 public:
-    Camera();
-    Ray get_ray(double u, double v);
+    Camera(Vector from, Vector to, Vector vup, double vertical_fov, double aspect);
+    Ray get_ray(double s, double t);
 };
 
 }
