@@ -64,11 +64,11 @@ void render() {
     shape_list.push_back(small);
 
     std::shared_ptr<Shape> metal_ball_one (new Sphere(Vector(1, 0, -1), 0.5,
-        std::shared_ptr<Metal>(new Metal(Colour(0.8, 0.6, 0.2)))));
+        std::shared_ptr<Metal>(new Metal(Colour(0.8, 0.6, 0.2), 1))));
     shape_list.push_back(metal_ball_one);
 
     std::shared_ptr<Shape> metal_ball_two (new Sphere(Vector(-1, 0, -1), 0.5,
-        std::shared_ptr<Metal>(new Metal(Colour(0.8, 0.8, 0.8)))));
+        std::shared_ptr<Metal>(new Metal(Colour(0.8, 0.8, 0.8), 0.3))));
     shape_list.push_back(metal_ball_two);
 
     ShapeList world (shape_list);
