@@ -52,8 +52,13 @@ void render() {
 
     std::cout << "P3\n" << width << " " << height << "\n255\n";
 
-    Camera camera (Vector(-2, 2, 1), Vector(0, 0, -1), Vector(0, 1, 0), 30, 
-        double(width) / double(height));
+    Vector from (-2, 2, 1);
+    Vector to (0, 0, -1);
+    double distance_to_focus = (from - to).length();
+    double aperture = 2;
+
+    Camera camera (from, to, Vector(0, 1, 0), 30, double(width) / double(height), aperture, 
+        distance_to_focus);
 
     std::vector<std::shared_ptr<Shape> > shape_list;
 
