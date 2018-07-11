@@ -72,6 +72,10 @@ void render() {
         std::shared_ptr<Dielectric>(new Dielectric(1.5))));
     shape_list.push_back(glass_ball);
 
+    std::shared_ptr<Shape> glass_ball_bubble (new Sphere(Vector(-1, 0, -1), -0.45,
+        std::shared_ptr<Dielectric>(new Dielectric(1.5))));
+    shape_list.push_back(glass_ball_bubble);
+
     ShapeList world (shape_list);
 
     for (auto j = height - 1; j >= 0; j--) {
