@@ -12,6 +12,7 @@
 #include "geometry/Sphere.h"
 #include "material/Lambertian.h"
 #include "material/Metal.h"
+#include "material/Dielectric.h"
 #include "camera/Camera.h"
 #include "output/Output.h"
 
@@ -63,13 +64,13 @@ void render() {
         std::shared_ptr<Lambertian>(new Lambertian(Colour(0.8, 0.3, 0.3)))));
     shape_list.push_back(small);
 
-    std::shared_ptr<Shape> metal_ball_one (new Sphere(Vector(1, 0, -1), 0.5,
+    std::shared_ptr<Shape> metal_ball (new Sphere(Vector(1, 0, -1), 0.5,
         std::shared_ptr<Metal>(new Metal(Colour(0.8, 0.6, 0.2), 1))));
-    shape_list.push_back(metal_ball_one);
+    shape_list.push_back(metal_ball);
 
-    std::shared_ptr<Shape> metal_ball_two (new Sphere(Vector(-1, 0, -1), 0.5,
-        std::shared_ptr<Metal>(new Metal(Colour(0.8, 0.8, 0.8), 0.3))));
-    shape_list.push_back(metal_ball_two);
+    std::shared_ptr<Shape> glass_ball (new Sphere(Vector(-1, 0, -1), 0.5,
+        std::shared_ptr<Dielectric>(new Dielectric(1.5))));
+    shape_list.push_back(glass_ball);
 
     ShapeList world (shape_list);
 
