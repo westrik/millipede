@@ -1,5 +1,7 @@
 #include "Dielectric.h"
 
+#include <iostream>
+
 namespace Millipede {
 
 double schlick(double cosine, double refraction_index) {
